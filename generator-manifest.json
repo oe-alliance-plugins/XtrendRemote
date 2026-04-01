@@ -1,0 +1,18 @@
+{
+  "branch": "main",
+  "depends_recipe": "",
+  "description_control": "Change Remote Control Code, Switch ET5000 ET9000 DMM remote",
+  "description_recipe": "Change Remote Control Code, Switch ET5000 ET9000 DMM remote",
+  "history_source_dir": "XtrendRemote",
+  "internal_package_name": "enigma2-plugin-systemplugins-remotecontrolcode",
+  "module_dir_name": "XtrendRemote",
+  "output_subdir": "XtrendRemote",
+  "package_name": "enigma2-plugin-systemplugins-remotecontrolcode-xtrend-remote",
+  "plugin_src_rel": "XtrendRemote",
+  "python_package": "XtrendRemote",
+  "rdepends_recipe": "",
+  "replaces": "",
+  "repo_name": "XtrendRemote",
+  "rrecommends": "",
+  "rreplaces": ""
+}
