@@ -4,6 +4,9 @@
 # for localized messages
 from . import _
 
+from os import chmod, unlink
+from os.path import exists
+
 from Plugins.Plugin import PluginDescriptor
 from Screens.MessageBox import MessageBox
 from Screens.Screen import Screen
@@ -11,12 +14,14 @@ from Components.ActionMap import ActionMap
 from Components.Button import Button
 from Components.ConfigList import ConfigListScreen
 from Components.config import config, ConfigSubsection, ConfigSelection, getConfigListEntry
-from os import path as os_path, chmod as os_chmod, unlink as os_unlink
 
 modelist = {"3": _("OdinM9"), "5": _("ET9000/ET9100"), "4": _("DMM/DMM ADV"), "6": _("DMM/DMM ADV"), "7": _("ET5000/ET6000"), "8": _("Vu"), "9": _("ET6500/ET9500"), "11": _("ET9200/ET9500"), "13": _("ET4000"), "14": _("XP1000"), "16": _("HD1100"), "17": _("XP3000"), "18": _("F1/F3"), "19": _("HD2400")}
 
+PROC = "/proc/stb/ir/rc/type"
+INIT_SCRIPT = "/etc/rc3.d/S30rcsetup"
+
 config.plugins.RCSetup = ConfigSubsection()
-file = open("/proc/stb/ir/rc/type", "r")
+file = open(PROC, "r")
 text = file.read()
 file.close()
 temp = int(text)
@@ -144,15 +149,17 @@ class RCSetupScreen(ConfigListScreen, Screen):
 			self.createFile()
 
 	def createFile(self):
-		file = open("/etc/rc3.d/S30rcsetup", "w")
-		m = 'echo ' + config.plugins.RCSetup.mode.value + ' > /proc/stb/ir/rc/type'
+		file = open(INIT_SCRIPT, "w")
+		m = 'echo ' + config.plugins.RCSetup.mode.value + ' > ' + PROC
 		file.write(m)
 		file.close()
-		os_chmod("/etc/rc3.d/S30rcsetup", 0o755)
+		# Set permissions to rwxr-xr-x (0o755) - standard for init scripts
+		# Owner: read, write, execute; Group: read, execute; Others: read, execute
+		chmod(INIT_SCRIPT, 0o755)  # NOSONAR - octal literal is more clear for file permissions
 
 	def removeFile(self):
-		if os_path.exists("/etc/rc3.d/S30rcsetup"):
-			os_unlink("/etc/rc3.d/S30rcsetup")
+		if exists(INIT_SCRIPT):
+			unlink(INIT_SCRIPT)
 
 	def keyLeft(self):
 		ConfigListScreen.keyLeft(self)
@@ -165,12 +172,12 @@ class RCSetupScreen(ConfigListScreen, Screen):
 		self.close()
 
 	def applySettings(self):
-		file = open("/proc/stb/ir/rc/type", "r")
+		file = open(PROC, "r")
 		lines = file.readlines()
 		file.close()
 		if int(lines[0]) != int(config.plugins.RCSetup.mode.value):
 			try:
-				file = open("/proc/stb/ir/rc/type", "w")
+				file = open(PROC, "w")
 				file.write('%d' % int(config.plugins.RCSetup.mode.value))
 				file.close()
 			except OSError:
@@ -193,7 +200,7 @@ def RemoteControlSetup(menuid, **kwargs):
 
 
 def Plugins(**kwargs):
-	if os_path.exists("/proc/stb/ir/rc/type"):
+	if exists(PROC):
 		return [PluginDescriptor(name=_("Remote Control Code"), where=PluginDescriptor.WHERE_MENU, needsRestart=False, fnc=RemoteControlSetup),
 					PluginDescriptor(name="Remote Setup", description="", where=PluginDescriptor.WHERE_SESSIONSTART, fnc=startup)]
 	return []
