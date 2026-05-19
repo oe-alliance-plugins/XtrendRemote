@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enigma2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-07-30 19:14+0200\n"
+"POT-Creation-Date: 2026-04-08 10:12+0200\n"
 "PO-Revision-Date: 2016-05-07 14:23+0200\n"
 "Last-Translator: neoatomic <neoatomic@users.noreply.github.com>\n"
 "Language-Team: Russian / enigma(c) Ukraine, Kiev>\n"
@@ -14,56 +14,74 @@ msgstr ""
 "X-Generator: Poedit 1.8.7\n"
 "X-Poedit-SourceCharset: iso-8859-5\n"
 
+#: ../plugin.py:74
 msgid "Cancel"
 msgstr "Отменить"
 
+#: ../plugin.py:18
 msgid "DMM/DMM ADV"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "ET4000"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "ET5000/ET6000"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "ET6500/ET9500"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "ET9000/ET9100"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "ET9200/ET9500"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "F1/F3"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "HD1100"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "HD2400"
 msgstr ""
 
+#: ../plugin.py:106
 msgid "Is this remote ok?"
 msgstr ""
 
+#: ../plugin.py:73
 msgid "OK"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "OdinM9"
 msgstr ""
 
+#: ../plugin.py:96
 msgid "Remote"
 msgstr ""
 
+#: ../plugin.py:197 ../plugin.py:204
 msgid "Remote Control Code"
 msgstr "Код дистанционного управления"
 
+#: ../plugin.py:18
 msgid "Vu"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "XP1000"
 msgstr ""
 
+#: ../plugin.py:18
 msgid "XP3000"
 msgstr ""
